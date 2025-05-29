@@ -10,7 +10,6 @@ const Navbar = () => {
   return (
     <div className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        {/* Logo */}
         <Link
           to="/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
@@ -18,9 +17,7 @@ const Navbar = () => {
           <img src={logo} className="h-9" alt="CureNow Logo" />
         </Link>
 
-        {/* Desktop Get Started Button & Burger Icon */}
         <div className="flex md:order-2 space-x-3 rtl:space-x-reverse items-center">
-          {/* Desktop only button */}
           <Link to="/login" className="hidden md:block">
             <button
               type="button"
@@ -30,7 +27,6 @@ const Navbar = () => {
             </button>
           </Link>
 
-          {/* Burger icon for small screens */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             type="button"
@@ -41,7 +37,6 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Navigation Links */}
         <div
           className={`${
             isMenuOpen ? "block" : "hidden"
@@ -78,7 +73,7 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                to="#"
+                to="/about"
                 onClick={() => {
                   setIsClick("About Us");
                   setIsMenuOpen(false);
@@ -92,7 +87,7 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                to="#"
+                to="/contact"
                 onClick={() => {
                   setIsClick("Contact");
                   setIsMenuOpen(false);
@@ -105,7 +100,6 @@ const Navbar = () => {
               </Link>
             </li>
 
-            {/* Mobile only Get Started Button */}
             <li className="block md:hidden mt-2 px-3">
               <Link to="/login">
                 <button

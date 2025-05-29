@@ -9,6 +9,8 @@ import SignUp from "./pages/SignUp";
 import Doctorlist from "./pages/Doctorlist";
 import TopDoctors from "./pages/TopDoctors";
 import HeroSection from "./components/HeroSection";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 function App() {
   return (
     <>
@@ -19,8 +21,9 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/doctor-list" element={<Doctorlist />}></Route>
         <Route path="/top-doctors" element={<TopDoctors />}></Route>
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
-
     </>
   );
 }
