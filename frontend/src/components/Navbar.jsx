@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/Logo.png";
 import { HiMenu } from "react-icons/hi";
 
 const Navbar = () => {
   const [isClick, setIsClick] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const [token, setToken] = useState(true);
+  const navigate = useNavigate();
+  const handleButtonClick = () => {
+    setToken(!token);
+    navigate("/login");
+  };
   return (
-    <div className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+    <div className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600 ">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           to="/"
@@ -18,14 +23,21 @@ const Navbar = () => {
         </Link>
 
         <div className="flex md:order-2 space-x-3 rtl:space-x-reverse items-center">
-          <Link to="/login" className="hidden md:block">
+          {token ? (
             <button
-              type="button"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              onClick={() => handleButtonClick()}
+              className=" hidden md:inline-block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Logout
+            </button>
+          ) : (
+            <button
+              onClick={() => handleButtonClick()}
+              className="hidden md:inline-block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Get Started
             </button>
-          </Link>
+          )}
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -71,6 +83,46 @@ const Navbar = () => {
                 Doctor List
               </Link>
             </li>
+            {token ? (
+              <>
+                {" "}
+                <li>
+                  <Link
+                    to="/my-profile"
+                    onClick={() => {
+                      setIsClick("My-Profile");
+                      setIsMenuOpen(false);
+                    }}
+                    className={`block py-2 px-3 ${
+                      isClick === "My-Profile"
+                        ? "text-blue-600"
+                        : "text-gray-600"
+                    } md:p-0`}
+                  >
+                    My-Profile
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/my-appointment"
+                    onClick={() => {
+                      setIsClick("My-Appointments");
+                      setIsMenuOpen(false);
+                    }}
+                    className={`block py-2 px-3 ${
+                      isClick === "My-Appointments"
+                        ? "text-blue-600"
+                        : "text-gray-600"
+                    } md:p-0`}
+                  >
+                    My-Appointments
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <></>
+            )}
+
             <li>
               <Link
                 to="/about"
@@ -101,14 +153,22 @@ const Navbar = () => {
             </li>
 
             <li className="block md:hidden mt-2 px-3">
-              <Link to="/login">
+              {/* {console.log(token)} */}
+              {token ? (
                 <button
-                  type="button"
+                  onClick={() => handleButtonClick()}
+                  className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Logout
+                </button>
+              ) : (
+                <button
+                  onClick={() => handleButtonClick()}
                   className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Get Started
                 </button>
-              </Link>
+              )}
             </li>
           </ul>
         </div>

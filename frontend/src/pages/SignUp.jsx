@@ -1,6 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const SignUp = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen flex fle-col items-center justify-center py-6 px-4">
       <div className="grid md:grid-cols-2 items-center gap-10 max-w-6xl max-md:max-w-md w-full">
@@ -87,10 +88,10 @@ const SignUp = () => {
 
           <div className="!mt-12">
             <button
-              type="button"
+              onClick={() => navigate("/")}
               className="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none cursor-pointer"
             >
-              <Link to="/">Create account</Link>
+              Create account
             </button>
           </div>
         </form>

@@ -11,6 +11,10 @@ import TopDoctors from "./pages/TopDoctors";
 import HeroSection from "./components/HeroSection";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Appointment from "./pages/Appointment";
+import MyAppointment from "./pages/MyAppointment";
+import MyProfile from "./pages/MyProfile";
+import Footer from "./components/Footer";
 function App() {
   return (
     <>
@@ -23,7 +27,11 @@ function App() {
         <Route path="/top-doctors" element={<TopDoctors />}></Route>
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/my-profile" element={<MyProfile />} />
+        <Route path="/my-appointment" element={<MyAppointment />} />
+        <Route path="/appointment/:Id" element={<Appointment />} />
       </Routes>
+      <Footer />
     </>
   );
 }
