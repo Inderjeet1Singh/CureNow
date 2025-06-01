@@ -7,7 +7,6 @@ const Doctorlist = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [filter, setFilter] = useState("All");
   const [whichFilterClicked, setWhichFilterClicked] = useState("All");
-
   const filterDoctorsList =
     filter === "All"
       ? doctors

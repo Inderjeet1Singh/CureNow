@@ -4,7 +4,6 @@ import Footer from "../components/Footer";
 import TopDoctors from "../components/TopDoctors";
 
 const Home = () => {
-  scrollTo(0, 0);
   return (
     <div>
       <HeroSection />

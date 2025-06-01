@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useParams,
+} from "react-router-dom";
 import "./index.css";
 import logo from "./assets/Logo.png";
 import Navbar from "./components/Navbar";
@@ -15,9 +20,11 @@ import Appointment from "./pages/Appointment";
 import MyAppointment from "./pages/MyAppointment";
 import MyProfile from "./pages/MyProfile";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
