@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 export const AppContext = createContext();
 import DocM1 from "../assets/doctors/DocM1.jpg";
 import DocM2 from "../assets/doctors/DocM2.jpg";
@@ -14,6 +14,7 @@ import DocF5 from "../assets/doctors/DocF5.jpg";
 import DocF6 from "../assets/doctors/DocF6.jpg";
 import AboutUsImg from "../assets/AboutUs.jpg";
 import ContactUsImg from "../assets/ContactUs.jpg";
+import ProfilePic from "../assets/ProfilePic.jpg";
 const doctors = [
   {
     id: 1,
@@ -26,6 +27,10 @@ const doctors = [
     available: true,
     view: 20,
     fee: 50,
+    address: {
+      line1: "123 Heart Care Blvd",
+      line2: "Mumbai, Maharashtra",
+    },
   },
   {
     id: 2,
@@ -38,6 +43,10 @@ const doctors = [
     available: true,
     view: 30,
     fee: 70,
+    address: {
+      line1: "45 Neuro Street",
+      line2: "Delhi, India",
+    },
   },
   {
     id: 3,
@@ -50,6 +59,10 @@ const doctors = [
     available: false,
     view: 10,
     fee: 100,
+    address: {
+      line1: "22 Kids Clinic Road",
+      line2: "Bangalore, Karnataka",
+    },
   },
   {
     id: 4,
@@ -62,6 +75,10 @@ const doctors = [
     available: true,
     view: 23,
     fee: 40,
+    address: {
+      line1: "9 Child Wellness Ave",
+      line2: "Hyderabad, Telangana",
+    },
   },
   {
     id: 5,
@@ -74,6 +91,10 @@ const doctors = [
     available: false,
     view: 30,
     fee: 80,
+    address: {
+      line1: "67 Baby Health Ln",
+      line2: "Ahmedabad, Gujarat",
+    },
   },
   {
     id: 6,
@@ -86,6 +107,10 @@ const doctors = [
     available: true,
     view: 14,
     fee: 90,
+    address: {
+      line1: "78 Child First St",
+      line2: "Pune, Maharashtra",
+    },
   },
   {
     id: 7,
@@ -98,6 +123,10 @@ const doctors = [
     available: true,
     view: 40,
     fee: 100,
+    address: {
+      line1: "101 Heartline Tower",
+      line2: "Jaipur, Rajasthan",
+    },
   },
   {
     id: 8,
@@ -110,6 +139,10 @@ const doctors = [
     available: false,
     view: 24,
     fee: 200,
+    address: {
+      line1: "33 Brainwave Crescent",
+      line2: "Lucknow, Uttar Pradesh",
+    },
   },
   {
     id: 9,
@@ -122,6 +155,10 @@ const doctors = [
     available: true,
     view: 26,
     fee: 150,
+    address: {
+      line1: "11 Young Care Rd",
+      line2: "Chandigarh",
+    },
   },
   {
     id: 10,
@@ -134,6 +171,10 @@ const doctors = [
     available: true,
     view: 28,
     fee: 120,
+    address: {
+      line1: "88 Pediatric Circle",
+      line2: "Bhopal, Madhya Pradesh",
+    },
   },
   {
     id: 11,
@@ -146,6 +187,10 @@ const doctors = [
     available: false,
     view: 27,
     fee: 180,
+    address: {
+      line1: "66 Toddler Trail",
+      line2: "Patna, Bihar",
+    },
   },
   {
     id: 12,
@@ -158,8 +203,13 @@ const doctors = [
     available: true,
     view: 20,
     fee: 130,
+    address: {
+      line1: "44 Growth Path",
+      line2: "Indore, Madhya Pradesh",
+    },
   },
 ];
+
 const slots = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 const timeSlots = [
   "10:00",
@@ -175,12 +225,16 @@ const timeSlots = [
   "01:15",
 ];
 const AppContextProvider = (props) => {
+  const [token, setToken] = useState(true);
   const value = {
     doctors,
     slots,
     timeSlots,
     AboutUsImg,
     ContactUsImg,
+    ProfilePic,
+    token,
+    setToken,
   };
 
   return (

@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import AppContextProvider, { AppContext } from "../context/AppContext";
 const Login = () => {
+  const { token, setToken } = useContext(AppContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+  };
   return (
     <div className="min-h-screen flex fle-col items-center justify-center py-6 px-4">
       <div className="grid md:grid-cols-2 items-center gap-10 max-w-6xl max-md:max-w-md w-full">
@@ -37,6 +44,7 @@ const Login = () => {
               <input
                 name="email"
                 type="email"
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 className="bg-slate-100 w-full text-sm text-slate-800 px-4 py-3 rounded-md outline-0 border border-gray-200 focus:border-blue-600 focus:bg-transparent"
                 placeholder="Enter Email"
@@ -49,6 +57,7 @@ const Login = () => {
               <input
                 name="password"
                 type="password"
+                onChange={(e) => setPassword(e.target.value)}
                 required
                 className="bg-slate-100 w-full text-sm text-slate-800 px-4 py-3 rounded-md outline-0 border border-gray-200 focus:border-blue-600 focus:bg-transparent"
                 placeholder="Enter Password"
@@ -68,7 +77,10 @@ const Login = () => {
 
           <div className="!mt-12">
             <button
-              onClick={() => navigate("/")}
+              onClick={() => {
+                navigate("/");
+                setToken(!token);
+              }}
               className="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none cursor-pointer"
             >
               Login

@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/Logo.png";
 import { HiMenu } from "react-icons/hi";
+import AppContextProvider, { AppContext } from "../context/AppContext";
 
 const Navbar = () => {
   const [isClick, setIsClick] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [token, setToken] = useState(true);
+  const { token, setToken } = useContext(AppContext);
   const navigate = useNavigate();
   const handleButtonClick = () => {
     setToken(!token);
