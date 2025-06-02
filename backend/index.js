@@ -3,6 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import connectDb from "./config/db.js";
 import connectCloudinary from "./config/cloudinary.js";
+import adminRouter from "./routes/adminRoutes.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 connectDb();
@@ -15,6 +16,7 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("Api working fine");
 });
+app.use("/api/admin", adminRouter);
 
 app.listen(PORT, () => {
   console.log(`Server Started port No.  ${PORT}`);

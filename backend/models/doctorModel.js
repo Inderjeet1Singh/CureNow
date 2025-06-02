@@ -19,11 +19,11 @@ const doctorSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    spciality: {
+    speciality: {
       type: String,
       required: true,
     },
-    Degree: {
+    degree: {
       type: String,
       required: true,
     },
@@ -37,7 +37,7 @@ const doctorSchema = new mongoose.Schema(
     },
     available: {
       type: Boolean,
-      required: true,
+      default: true,
     },
     fees: {
       type: Number,
@@ -49,7 +49,7 @@ const doctorSchema = new mongoose.Schema(
     },
     date: {
       type: Number,
-      required: true,
+      default: Date.now(),
     },
     slots_booked: {
       type: Object,
