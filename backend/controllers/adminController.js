@@ -102,8 +102,6 @@ const addDoctor = async (req, res) => {
       about,
       fees,
       address: JSON.parse(address),
-
-      date: Date.now(),
     };
 
     const newDoc = new doctorModel(doctorData);
@@ -114,5 +112,14 @@ const addDoctor = async (req, res) => {
     return res.json({ succes: false, message: error.message });
   }
 };
-
-export { addDoctor, loginAdmin };
+// let get all doctor list
+const allDoctors = async (req, res) => {
+  try {
+    const doctors = await doctorModel.find({}).select("-password");
+    res.json({ succes: true, doctors });
+  } catch (error) {
+    console.log(error);
+    return res.json({ succes: false, message: error.message });
+  }
+};
+export { addDoctor, loginAdmin, allDoctors };

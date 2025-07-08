@@ -20,7 +20,7 @@ const Navbar = () => {
           to="/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          <img src={logo} className="h-9" alt="CureNow Logo" />
+          <img src={logo} className="sm:h-9 h-7" alt="CureNow Logo" />
         </Link>
 
         <div className="flex md:order-2 space-x-3 rtl:space-x-reverse items-center">

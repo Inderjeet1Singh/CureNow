@@ -2,7 +2,7 @@ import React from "react";
 import heroImage from "../assets/HeroImages/HeroImage4.png";
 const HeroSection = () => {
   return (
-    <div className=" pt-10 h-auto w-full">
+    <div className=" sm:pt-10  pt-16 h-auto w-full">
       <div className="bg-blue-400">
         <div className="relative mx-auto mt-4 md:mt-8">
           <div className="lg:max-w-4xl lg:mx-auto">

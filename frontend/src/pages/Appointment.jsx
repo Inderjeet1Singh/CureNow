@@ -122,7 +122,7 @@ const Appointment = () => {
           Related Doctors
         </h2>
         <p className="text-gray-600 mb-6">
-          You may also be interested in these Pediatricians.
+          You may also be interested in these Doctors.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {relatedDoctor.map((doctor, index) => (

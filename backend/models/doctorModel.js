@@ -48,8 +48,16 @@ const doctorSchema = new mongoose.Schema(
       required: true,
     },
     date: {
-      type: Number,
-      default: Date.now(),
+      type: String,
+      default: () => {
+        const now = new Date();
+        const d = String(now.getDate()).padStart(2, "0");
+        const m = String(now.getMonth() + 1).padStart(2, "0");
+        const y = now.getFullYear();
+        const h = String(now.getHours()).padStart(2, "0");
+        const min = String(now.getMinutes()).padStart(2, "0");
+        return `${d}/${m}/${y}  time: ${h}:${min}`;
+      },
     },
     slots_booked: {
       type: Object,

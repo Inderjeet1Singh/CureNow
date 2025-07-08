@@ -34,7 +34,7 @@ const TopDoctors = () => {
               <img
                 src={doctor.image}
                 alt={doctor.name}
-                className="w-full h-56 object-cover"
+                className="w-full  object-cover sm:h-64"
               />
               <div className="p-6 flex flex-col justify-between h-full">
                 <div>
