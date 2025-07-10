@@ -20,7 +20,10 @@ const timeSlots = [
   "01:15",
 ];
 const AppContextProvider = (props) => {
-  const [token, setToken] = useState(true);
+  const [token, setToken] = useState(
+    localStorage.getItem("token") ? localStorage.getItem("token") : false
+  );
+  const [userData, setUserData] = useState(false);
   const [doctors, setDoctors] = useState([]);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const getDoctorData = async () => {
@@ -37,9 +40,34 @@ const AppContextProvider = (props) => {
       console.log(error);
     }
   };
+
+  const getUserData = async () => {
+    try {
+      const { data } = await axios.get(backendUrl + "/api/user/my-profile", {
+        headers: { token },
+      });
+      if (data.succes) {
+        setUserData(data.userData);
+      } else {
+        toast.error(data.message);
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getDoctorData();
   }, []);
+  useEffect(() => {
+    if (token) {
+      getUserData();
+    } else {
+      setUserData(false);
+      // navigator("/signup");
+    }
+  }, [token]);
   const value = {
     doctors,
     slots,
@@ -49,6 +77,11 @@ const AppContextProvider = (props) => {
     ProfilePic,
     token,
     setToken,
+    backendUrl,
+    userData,
+    setUserData,
+    getDoctorData,
+    getUserData,
   };
 
   return (

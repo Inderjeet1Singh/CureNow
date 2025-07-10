@@ -180,7 +180,7 @@ const Doctorlist = () => {
             {filterDoctorsList.map((doctor, index) => (
               <div
                 key={index}
-                className="bg-white border border-gray-200 rounded-xl shadow hover:shadow-lg transition overflow-hidden cursor-pointer"
+                className="bg-white border border-gray-200 rounded-xl shadow hover:shadow-lg transition overflow-hidden cursor-pointer "
                 onClick={() => {
                   navigate(`/appointment/${doctor._id}`);
                 }}
@@ -188,7 +188,7 @@ const Doctorlist = () => {
                 <img
                   src={doctor.image}
                   alt={doctor.name}
-                  className="w-full h-56 object-scale-down"
+                  className="w-full h-56 object-scale-down "
                 />
                 <div className="p-6 flex flex-col justify-between h-full">
                   <div>

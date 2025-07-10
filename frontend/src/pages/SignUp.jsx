@@ -1,14 +1,40 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from "axios";
 import AppContextProvider, { AppContext } from "../context/AppContext";
 const SignUp = () => {
-  const { token, setToken } = useContext(AppContext);
+  const { token, setToken, backendUrl } = useContext(AppContext);
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [gender, setGender] = useState("Not Selected");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
+    try {
+      const { data } = await axios.post(backendUrl + "/api/user/register", {
+        name,
+        email,
+        password,
+      });
+      if (data.succes) {
+        localStorage.setItem("token", data.token);
+        setToken(data.token);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token]);
   return (
     <div className="min-h-screen flex fle-col items-center justify-center py-6 px-4">
       <div className="grid md:grid-cols-2 items-center gap-10 max-w-6xl max-md:max-w-md w-full">
@@ -32,7 +58,7 @@ const SignUp = () => {
           </p>
         </div>
 
-        <form className="max-w-md md:ml-auto w-full">
+        <form onSubmit={onSubmitHandler} className="max-w-md md:ml-auto w-full">
           <h3 className="text-slate-900 lg:text-3xl text-2xl font-bold mb-8">
             Sign in
           </h3>
@@ -46,6 +72,7 @@ const SignUp = () => {
                 name="name"
                 type="text"
                 onChange={(e) => setName(e.target.value)}
+                value={name}
                 required
                 className="bg-slate-100 w-full text-sm text-slate-800 px-4 py-3 rounded-md outline-0 border border-gray-200 focus:border-blue-600 focus:bg-transparent"
                 placeholder="Enter Name"
@@ -58,12 +85,11 @@ const SignUp = () => {
               <select
                 name="gender"
                 onChange={(e) => setGender(e.target.value)}
+                value={gender}
                 className="bg-slate-100 w-full text-sm text-slate-800 px-4 py-3 rounded-md outline-0 border border-gray-200 focus:border-blue-600 focus:bg-transparent"
                 placeholder="Enter Email"
               >
-                <option value="Not Selected" selected>
-                  Not Selected
-                </option>
+                <option value="Not Selected">Not Selected</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Prefer not to say">Prefer not to say</option>
@@ -77,6 +103,7 @@ const SignUp = () => {
                 name="email"
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
+                value={email}
                 required
                 className="bg-slate-100 w-full text-sm text-slate-800 px-4 py-3 rounded-md outline-0 border border-gray-200 focus:border-blue-600 focus:bg-transparent"
                 placeholder="Enter Email"
@@ -90,6 +117,7 @@ const SignUp = () => {
                 name="password"
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
+                value={password}
                 required
                 className="bg-slate-100 w-full text-sm text-slate-800 px-4 py-3 rounded-md outline-0 border border-gray-200 focus:border-blue-600 focus:bg-transparent"
                 placeholder="Enter Password"
@@ -99,10 +127,7 @@ const SignUp = () => {
 
           <div className="!mt-12">
             <button
-              onClick={() => {
-                navigate("/");
-                setToken(!token);
-              }}
+              type="submit"
               className="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none cursor-pointer"
             >
               Create account
