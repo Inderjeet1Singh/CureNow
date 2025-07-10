@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const TopDoctors = () => {
-  return (
-    <div>TopDoctors</div>
-  )
-}
+  return <div>TopDoctors</div>;
+};
 
-export default TopDoctors
+export default TopDoctors;

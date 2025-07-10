@@ -5,19 +5,19 @@ const Doctorlist = () => {
   const { doctors } = useContext(AppContext);
   const navigate = useNavigate();
   const [showFilters, setShowFilters] = useState(false);
-  const [filter, setFilter] = useState("All");
+  const [filterDoc, setFilterDoc] = useState("All");
   const [whichFilterClicked, setWhichFilterClicked] = useState("All");
   const filterDoctorsList =
-    filter === "All"
+    filterDoc === "All"
       ? doctors
-      : doctors.filter((doctor) => doctor.specialty === filter);
+      : doctors.filter((doctor) => doctor.speciality === filterDoc);
 
   const handleClicked = (value) => {
     if (whichFilterClicked === value) {
-      setFilter("All");
+      setFilterDoc("All");
       setWhichFilterClicked("All");
     } else {
-      setFilter(value);
+      setFilterDoc(value);
       setWhichFilterClicked(value);
     }
   };
@@ -39,7 +39,7 @@ const Doctorlist = () => {
           <p
             onClick={() => handleClicked("All")}
             className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2  ${
-              whichFilterClicked === "All" && filter === "All"
+              whichFilterClicked === "All" && filterDoc === "All"
                 ? "bg-blue-500"
                 : ""
             }`}
@@ -47,55 +47,59 @@ const Doctorlist = () => {
             All
           </p>
           <p
+            onClick={() => handleClicked("Pediatrician")}
+            className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2  ${
+              whichFilterClicked === "Pediatrician" &&
+              filterDoc === "Pediatrician"
+                ? "bg-blue-500"
+                : ""
+            }`}
+          >
+            Pediatrician
+          </p>
+          <p
+            onClick={() => handleClicked("Gynecologist")}
+            className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2  ${
+              whichFilterClicked === "Gynecologist" &&
+              filterDoc === "Gynecologist"
+                ? "bg-blue-500"
+                : ""
+            }`}
+          >
+            Gynecologist
+          </p>
+          <p
+            onClick={() => handleClicked("Dermatologist")}
+            className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2  ${
+              whichFilterClicked === "Dermatologist" &&
+              filterDoc === "Dermatologist"
+                ? "bg-blue-500"
+                : ""
+            }`}
+          >
+            Dermatologist
+          </p>
+          <p
+            onClick={() => handleClicked("Gastroenterologist")}
+            className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2  ${
+              whichFilterClicked === "Gastroenterologist" &&
+              filterDoc === "Gastroenterologist"
+                ? "bg-blue-500"
+                : ""
+            }`}
+          >
+            Gastroenterologist
+          </p>
+          <p
             onClick={() => handleClicked("Neurologist")}
             className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2  ${
-              whichFilterClicked === "Neurologist" && filter === "Neurologist"
+              whichFilterClicked === "Neurologist" &&
+              filterDoc === "Neurologist"
                 ? "bg-blue-500"
                 : ""
             }`}
           >
             Neurologist
-          </p>
-          <p
-            onClick={() => handleClicked("Cardiologist")}
-            className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2  ${
-              whichFilterClicked === "Cardiologist" && filter === "Cardiologist"
-                ? "bg-blue-500"
-                : ""
-            }`}
-          >
-            Cardiologist
-          </p>
-          <p
-            onClick={() => handleClicked("Dermatology")}
-            className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2  ${
-              whichFilterClicked === "Dermatology" && filter === "Dermatology"
-                ? "bg-blue-500"
-                : ""
-            }`}
-          >
-            Dermatology
-          </p>
-          <p
-            onClick={() => handleClicked("Gastroenterology")}
-            className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2  ${
-              whichFilterClicked === "Gastroenterology" &&
-              filter === "Gastroenterology"
-                ? "bg-blue-500"
-                : ""
-            }`}
-          >
-            Gastroenterology
-          </p>
-          <p
-            onClick={() => handleClicked("Neurology")}
-            className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2  ${
-              whichFilterClicked === "Neurology" && filter === "Neurology"
-                ? "bg-blue-500"
-                : ""
-            }`}
-          >
-            Neurology
           </p>
         </div>
 
@@ -103,8 +107,8 @@ const Doctorlist = () => {
           <div className="flex flex-col gap-2 mt-4 md:hidden">
             <p
               onClick={() => handleClicked("All")}
-              cclassName={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2 ${
-                whichFilterClicked === "All" && filter === "All"
+              className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2 ${
+                whichFilterClicked === "All" && filterDoc === "All"
                   ? "bg-blue-500"
                   : ""
               }`}
@@ -112,56 +116,59 @@ const Doctorlist = () => {
               All
             </p>
             <p
-              onClick={() => handleClicked("Neurologist")}
+              onClick={() => handleClicked("Pediatrician")}
               className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2  ${
-                whichFilterClicked === "Neurologist" && filter === "Neurologist"
+                whichFilterClicked === "Pediatrician" &&
+                filterDoc === "Pediatrician"
+                  ? "bg-blue-500"
+                  : ""
+              }`}
+            >
+              Pediatrician
+            </p>
+            <p
+              onClick={() => handleClicked("Gynecologist")}
+              className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2  ${
+                whichFilterClicked === "Gynecologist" &&
+                filterDoc === "Gynecologist"
+                  ? "bg-blue-500"
+                  : ""
+              }`}
+            >
+              Gynecologist
+            </p>
+            <p
+              onClick={() => handleClicked("Dermatologist")}
+              className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2  ${
+                whichFilterClicked === "Dermatologist" &&
+                filterDoc === "Dermatologist"
+                  ? "bg-blue-500"
+                  : ""
+              }`}
+            >
+              Dermatologist
+            </p>
+            <p
+              onClick={() => handleClicked("Gastroenterologist")}
+              className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2  ${
+                whichFilterClicked === "Gastroenterologist" &&
+                filterDoc === "Gastroenterologist"
+                  ? "bg-blue-500"
+                  : ""
+              }`}
+            >
+              Gastroenterologist
+            </p>
+            <p
+              onClick={() => handleClicked("Neurologist")}
+              className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2 ${
+                whichFilterClicked === "Neurologist" &&
+                filterDoc === "Neurologist"
                   ? "bg-blue-500"
                   : ""
               }`}
             >
               Neurologist
-            </p>
-            <p
-              onClick={() => handleClicked("Cardiologist")}
-              className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2  ${
-                whichFilterClicked === "Cardiologist" &&
-                filter === "Cardiologist"
-                  ? "bg-blue-500"
-                  : ""
-              }`}
-            >
-              Cardiologist
-            </p>
-            <p
-              onClick={() => handleClicked("Dermatology")}
-              className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2  ${
-                whichFilterClicked === "Dermatology" && filter === "Dermatology"
-                  ? "bg-blue-500"
-                  : ""
-              }`}
-            >
-              Dermatology
-            </p>
-            <p
-              onClick={() => handleClicked("Gastroenterology")}
-              className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2  ${
-                whichFilterClicked === "Gastroenterology" &&
-                filter === "Gastroenterology"
-                  ? "bg-blue-500"
-                  : ""
-              }`}
-            >
-              Gastroenterology
-            </p>
-            <p
-              onClick={() => handleClicked("Neurology")}
-              className={`text-gray-700 cursor-pointer border-2 border-blue-300 rounded-md bg-blue-100 px-4 py-2 ${
-                whichFilterClicked === "Neurology" && filter === "Neurology"
-                  ? "bg-blue-500"
-                  : ""
-              }`}
-            >
-              Neurology
             </p>
           </div>
         )}
@@ -175,13 +182,13 @@ const Doctorlist = () => {
                 key={index}
                 className="bg-white border border-gray-200 rounded-xl shadow hover:shadow-lg transition overflow-hidden cursor-pointer"
                 onClick={() => {
-                  navigate(`/appointment/${doctor.id}`);
+                  navigate(`/appointment/${doctor._id}`);
                 }}
               >
                 <img
                   src={doctor.image}
                   alt={doctor.name}
-                  className="w-full h-56 object-contain"
+                  className="w-full h-56 object-scale-down"
                 />
                 <div className="p-6 flex flex-col justify-between h-full">
                   <div>
@@ -196,9 +203,9 @@ const Doctorlist = () => {
                       </span>
                     </h3>
                     <p className="text-sm font-medium text-blue-600 mb-3">
-                      {doctor.specialty}{" "}
+                      {doctor.speciality}{" "}
                       <span className="ml-6 text-gray-400 text-xs">
-                        {doctor.view} view
+                        {doctor.experience}s of experience
                       </span>
                     </p>
                     <p className="text-gray-600 text-sm">

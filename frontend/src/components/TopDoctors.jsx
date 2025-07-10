@@ -5,7 +5,9 @@ import AppContextProvider, { AppContext } from "../context/AppContext";
 const TopDoctors = () => {
   const navigate = useNavigate();
   const { doctors } = useContext(AppContext);
-  const topDoctors = doctors.sort((a, b) => b.view - a.view).slice(0, 6);
+  const topDoctors = doctors
+    .sort((a, b) => parseInt(b.experience) - parseInt(a.experience))
+    .slice(0, 6);
   return (
     <div className="bg-gray-100 min-h-screen">
       <header className="flex items-center justify-center h-24 bg-gray-100 border-b-2 border-gray-200">
@@ -28,13 +30,13 @@ const TopDoctors = () => {
               key={index}
               className="bg-white border border-gray-200 rounded-xl shadow hover:shadow-lg transition overflow-hidden cursor-pointer"
               onClick={() => {
-                navigate(`/appointment/${doctor.id}`);
+                navigate(`/appointment/${doctor._id}`);
               }}
             >
               <img
                 src={doctor.image}
                 alt={doctor.name}
-                className="w-full  object-cover sm:h-64"
+                className="w-full  object-scale-down sm:h-64"
               />
               <div className="p-6 flex flex-col justify-between h-full">
                 <div>
@@ -49,12 +51,11 @@ const TopDoctors = () => {
                     </span>
                   </h3>
                   <p className="text-sm font-medium text-blue-600 mb-3">
-                    {doctor.specialty}
+                    {doctor.speciality}
                     <span className="ml-6 text-gray-400 text-xs">
-                      {doctor.view} view
+                      {doctor.experience} of experience
                     </span>
                   </p>
-                  <p className="text-gray-600 text-sm">{doctor.description}</p>
                 </div>
               </div>
             </div>

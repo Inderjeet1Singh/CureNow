@@ -4,30 +4,39 @@ import { AppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 const Appointment = () => {
-  scrollTo(0, 0);
   const navigate = useNavigate();
   const { doctors, slots, timeSlots } = useContext(AppContext);
   const { Id } = useParams();
-  const docId = parseInt(Id);
+  // const docId = parseInt(Id);
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
-  const docInfo = doctors.find((doc) => doc.id === docId);
-  // console.log(docInfo);
-  // console.log("Id param:", Id);
-  // console.log("Parsed docId:", docId);
-  // console.log("Doctors array:", doctors);
-  const relatedDocSpec = docInfo.specialty;
-  const relatedDoctor = doctors
-    .filter((doc) => doc.specialty === relatedDocSpec && doc.id !== docId)
-    .slice(0, 4);
+  const docInfo = doctors.find((doc) => doc._id === Id);
+  if (!docInfo) {
+    return (
+      <div className="w-full mt-14 flex justify-center items-center min-h-[60vh]">
+        <p className="text-gray-600 text-lg font-semibold">
+          Loading doctor details...
+        </p>
+      </div>
+    );
+  }
+  console.log(docInfo);
 
+  console.log("Id param:", Id);
+  // console.log("Parsed docId:", docId);
+  console.log("Doctors array:", doctors);
+  // console.log(typeof doctors);
+  const relatedDocSpec = docInfo.speciality;
+  const relatedDoctor = doctors
+    .filter((doc) => doc.speciality === relatedDocSpec && doc._id !== Id)
+    .slice(0, 4);
   return (
     <div className="w-full mt-14 flex flex-col items-center">
       <div className="flex flex-col md:flex-row bg-blue-100 shadow-md rounded-xl p-6 w-[90vw] max-w-6xl mt-2">
         <img
           src={docInfo.image}
           alt="docImage"
-          className="w-full md:w-1/3 h-56 md:h-64 object-contain object-center rounded-lg"
+          className="w-full md:w-1/3 h-56 md:h-64 object-scale-down object-center rounded-lg"
         />
         <div className="md:ml-6 mt-4 md:mt-0 flex flex-col justify-between w-full">
           <div>
@@ -44,23 +53,23 @@ const Appointment = () => {
             <div className="flex items-center space-x-4 mt-2 text-sm">
               <p className="text-gray-600">MBBS, MPhil</p>
               <span className="bg-gray-200 text-gray-800 px-2 py-1 rounded">
-                {docInfo.experience} Years of experience
+                {docInfo.experience}s of experience
               </span>
             </div>
             <h3 className="mt-4 text-lg font-semibold">About</h3>
             <p className="text-blue-700 mt-2">
               <span className="text-lg text-gray-500">Specialization : </span>
-              {docInfo.specialty}
+              {docInfo.speciality}
             </p>
             <p className="text-gray-700 mt-2">
               {" "}
               <span className="text-lg text-gray-500">Discription : </span>
-              {docInfo.description}
+              {docInfo.about}
             </p>
           </div>
           <div className="mt-4 flex items-center space-x-4">
             <p className="font-medium">Appointment Fee:</p>
-            <p className="text-green-600 font-bold">{docInfo.fee} Rs</p>
+            <p className="text-green-600 font-bold">{docInfo.fees} Rs</p>
           </div>
         </div>
       </div>
@@ -149,7 +158,9 @@ const Appointment = () => {
                     {doctor.available ? "(Available)" : "(Not Available)"}
                   </span>
                 </h3>
-                <p className="text-sm text-blue-600 mt-1">{doctor.specialty}</p>
+                <p className="text-sm text-blue-600 mt-1">
+                  {doctor.speciality}
+                </p>
               </div>
             </div>
           ))}
