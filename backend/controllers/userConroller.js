@@ -99,6 +99,7 @@ const updateProfile = async (req, res) => {
       const uploadimg = await cloudinary.uploader.upload(imageFile.path, {
         resource_type: "image",
       });
+      console.log("Uploaded File Path:", imageFile?.path);
 
       const imageUrl = uploadimg.secure_url;
       await userModel.findByIdAndUpdate(userId, { image: imageUrl });

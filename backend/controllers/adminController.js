@@ -42,18 +42,7 @@ const addDoctor = async (req, res) => {
       address,
     } = req.body;
     const imageFile = req.file;
-    // console.log({
-    //   name,
-    //   email,
-    //   password,
-    //   speciality,
-    //   about,
-    //   fees,
-    //   degree,
-    //   experience,
-    //   address,
-    //   imageFile,
-    // });
+
     // any thing is missing
     if (
       !name ||

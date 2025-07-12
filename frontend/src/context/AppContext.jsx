@@ -29,7 +29,7 @@ const AppContextProvider = (props) => {
   const getDoctorData = async () => {
     try {
       const { data } = await axios.get(backendUrl + "/api/doctor/doctor-list");
-      console.log(data);
+      // console.log(data);
       if (data.succes) {
         setDoctors(data.doctors);
       } else {
@@ -65,7 +65,6 @@ const AppContextProvider = (props) => {
       getUserData();
     } else {
       setUserData(false);
-      // navigator("/signup");
     }
   }, [token]);
   const value = {
