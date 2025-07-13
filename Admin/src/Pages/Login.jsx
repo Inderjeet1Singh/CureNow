@@ -17,7 +17,7 @@ const Login = () => {
           email,
           password,
         });
-        if (data.succes) {
+        if (data.success) {
           console.log("Token is:", data.token);
           localStorage.setItem("aToken", data.token);
           setAToken(data.token);

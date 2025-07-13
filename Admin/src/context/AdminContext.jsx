@@ -19,7 +19,7 @@ const AdminContextProvider = (props) => {
           headers: { aToken },
         }
       );
-      if (data.succes) {
+      if (data.success) {
         setDoctors(data.doctors);
         console.log(data.doctors);
       } else {
@@ -37,7 +37,7 @@ const AdminContextProvider = (props) => {
         { docId },
         { headers: { aToken } }
       );
-      if (data.succes) {
+      if (data.success) {
         toast.success(data.message);
         getAllDoctors();
       } else {

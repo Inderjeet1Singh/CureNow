@@ -13,19 +13,19 @@ const loginAdmin = (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.json({ succes: false, message: "enter all data" });
+      return res.json({ success: false, message: "enter all data" });
     }
     if (
       email !== process.env.ADMIN_EMAIL ||
       password !== process.env.ADMIN_PASS
     ) {
-      return res.json({ succes: false, message: "Invalid Credentials" });
+      return res.json({ success: false, message: "Invalid Credentials" });
     }
     const token = jwt.sign(email + password, process.env.JWT_SECRET);
-    return res.json({ succes: true, token });
+    return res.json({ success: true, token });
   } catch (error) {
     console.log(error);
-    return res.json({ succes: false, message: error.message });
+    return res.json({ success: false, message: error.message });
   }
 };
 const addDoctor = async (req, res) => {
@@ -55,16 +55,16 @@ const addDoctor = async (req, res) => {
       !about ||
       !address
     ) {
-      return res.json({ succes: false, message: "Fill All Details" });
+      return res.json({ success: false, message: "Fill All Details" });
     }
     // email is valid or not
     if (!validator.isEmail(email)) {
-      return res.json({ succes: false, message: "Enter valid email address" });
+      return res.json({ success: false, message: "Enter valid email address" });
     }
 
     if (password.length < 8) {
       return res.json({
-        succes: false,
+        success: false,
         message: "Password must have minimum 8 characters",
       });
     }
@@ -95,20 +95,20 @@ const addDoctor = async (req, res) => {
 
     const newDoc = new doctorModel(doctorData);
     await newDoc.save();
-    return res.json({ succes: true, message: "Doctor Added Successfully" });
+    return res.json({ success: true, message: "Doctor Added Successfully" });
   } catch (error) {
     console.log(error);
-    return res.json({ succes: false, message: error.message });
+    return res.json({ success: false, message: error.message });
   }
 };
 // let get all doctor list
 const allDoctors = async (req, res) => {
   try {
     const doctors = await doctorModel.find({}).select("-password");
-    res.json({ succes: true, doctors });
+    res.json({ success: true, doctors });
   } catch (error) {
     console.log(error);
-    return res.json({ succes: false, message: error.message });
+    return res.json({ success: false, message: error.message });
   }
 };
 export { addDoctor, loginAdmin, allDoctors };

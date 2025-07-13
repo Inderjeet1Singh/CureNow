@@ -58,7 +58,7 @@ const AddDoctor = () => {
         formData,
         { headers: { aToken } }
       );
-      if (data.succes) {
+      if (data.success) {
         toast.success(data.message);
         setPreview(doctorpng);
         setName("");

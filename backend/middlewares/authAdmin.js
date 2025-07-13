@@ -7,16 +7,16 @@ const authAdmin = (req, res, next) => {
     const { atoken } = req.headers;
 
     if (!atoken) {
-      return res.json({ succes: false, message: "First Login 1" });
+      return res.json({ success: false, message: "First Login 1" });
     }
     const token_decode = jwt.verify(atoken, process.env.JWT_SECRET);
     if (token_decode !== process.env.ADMIN_EMAIL + process.env.ADMIN_PASS) {
-      return res.json({ succes: false, message: "First Login 2" });
+      return res.json({ success: false, message: "First Login 2" });
     }
     next();
   } catch (error) {
     console.log(error);
-    return res.json({ succes: false, message: error.message });
+    return res.json({ success: false, message: error.message });
   }
 };
 

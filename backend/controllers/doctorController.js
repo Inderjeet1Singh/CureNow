@@ -6,20 +6,20 @@ const changeAvailability = async (req, res) => {
     await doctorModel.findByIdAndUpdate(docId, {
       available: !docData.available,
     });
-    res.json({ succes: true, message: "Availabilty Changed" });
+    res.json({ success: true, message: "Availabilty Changed" });
   } catch (error) {
     console.log(error);
-    res.json({ succes: false, message: error.message });
+    res.json({ success: false, message: error.message });
   }
 };
 
 const doctorList = async (req, res) => {
   try {
     const doctors = await doctorModel.find({}).select(["-password", "-email"]);
-    res.json({ succes: true, doctors });
+    res.json({ success: true, doctors });
   } catch (error) {
     console.log(error);
-    res.json({ succes: false, message: error.message });
+    res.json({ success: false, message: error.message });
   }
 };
 export { changeAvailability, doctorList };
