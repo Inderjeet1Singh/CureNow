@@ -21,11 +21,13 @@ import MyAppointment from "./pages/MyAppointment";
 import MyProfile from "./pages/MyProfile";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <>
       <ScrollToTop />
       <Navbar />
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>

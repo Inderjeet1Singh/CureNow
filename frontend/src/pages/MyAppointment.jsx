@@ -33,7 +33,7 @@ const MyAppointment = () => {
         { headers: { token } }
       );
       if (data.success) {
-        // console.log("MyAppointments:", data.myAppointments);
+        console.log("MyAppointments:", data.myAppointments);
         const appointmentsWithNotCancelled = data.myAppointments.filter(
           (appointment) => !appointment.cancelled
         );
@@ -67,6 +67,7 @@ const MyAppointment = () => {
       toast.error(error.message);
     }
   };
+
   useEffect(() => {
     if (token) {
       getAppointments();
@@ -135,6 +136,7 @@ const MyAppointment = () => {
 
             <div className="mt-5 flex flex-col sm:flex-row gap-3 sm:gap-4">
               <button
+                onClick={() => toast.warn("Coming Soon")}
                 className="flex justify-center items-center gap-2 px-5 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition"
                 aria-label="Pay Online"
               >

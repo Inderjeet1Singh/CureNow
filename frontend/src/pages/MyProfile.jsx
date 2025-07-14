@@ -84,9 +84,9 @@ const UserProfile = () => {
           headers: { token },
         }
       );
-      if (data.succes) {
-        toast.success("Profile Updated");
-        console.log("Success");
+      if (data.success) {
+        toast.success(data.message);
+        // console.log("Success");
         await getUserData();
         setIsEditing(false);
         setImageFile(null);

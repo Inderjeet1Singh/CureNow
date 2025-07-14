@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import { v2 as cloudinary } from "cloudinary";
 import doctorModel from "../models/doctorModel.js";
 import appointmentModel from "../models/appointmentModel.js";
+import razorpay from "razorpay";
 const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -185,21 +186,23 @@ const cancelAppointment = async (req, res) => {
   try {
     const { appointmentId } = req.body;
     const userId = req.userId;
-    console.log(appointmentId, ",", userId);
+    // console.log(appointmentId, ",", userId);
     const appointmentData = await appointmentModel.findById(appointmentId);
 
     if (!appointmentData) {
       return res.json({ success: false, message: "Appointment not found" });
     }
     // verify appointment user
-    if (!appointmentData.userId.equals(userId)) {
+    // console.log("user id", appointmentData.userId);
+    // console.log("user id2 : ", userId);
+    if (appointmentData.userId !== userId) {
       return res.json({ success: false, message: "Unauthorized action" });
     }
 
     await appointmentModel.findByIdAndUpdate(appointmentId, {
       cancelled: true,
     });
-    console.log("Canceling appointment:", appointmentId);
+    // console.log("Canceling appointment:", appointmentId);
 
     // releasing doctor slot
     const { docId, slotDate, slotTime } = appointmentData;
