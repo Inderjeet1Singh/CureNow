@@ -89,7 +89,9 @@ const AllAppointment = () => {
                       </div>
                     </td>
 
-                    <td className="py-3 px-4 border-b">{age}</td>
+                    <td className="py-3 px-4 border-b">
+                      {age ? age : "Not Mentioned"}
+                    </td>
 
                     <td className="py-3 px-4 border-b">
                       {date} at {time}

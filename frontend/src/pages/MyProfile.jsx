@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const UserProfile = () => {
+const MyProfile = () => {
   const { userData, setUserData, getUserData, token, backendUrl } =
     useContext(AppContext);
 
@@ -272,4 +272,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default MyProfile;

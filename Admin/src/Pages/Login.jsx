@@ -3,6 +3,7 @@ import { AdminContext } from "../context/AdminContext";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { DoctorContext } from "../context/DoctorContext";
+import { useEffect } from "react";
 const Login = () => {
   const [state, setState] = useState("Admin");
   const [email, setEmail] = useState("");
@@ -18,7 +19,6 @@ const Login = () => {
           password,
         });
         if (data.success) {
-          console.log("Token is:", data.token);
           localStorage.setItem("aToken", data.token);
           setAToken(data.token);
           toast.success("Login Success");
@@ -27,6 +27,19 @@ const Login = () => {
           toast.error(data.message);
         }
       } else {
+        const { data } = await axios.post(backendUrl + "/api/doctor/login", {
+          email,
+          password,
+        });
+        if (data.success) {
+          console.log("dToken is:", data.token);
+          localStorage.setItem("dToken", data.token);
+          setDToken(data.token);
+          toast.success("Login Success");
+        } else {
+          console.log("Login failed");
+          toast.error(data.message);
+        }
       }
     } catch (err) {
       console.error("Login error:", err);

@@ -5,6 +5,7 @@ import doctorModel from "../models/doctorModel.js";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import appointmentModel from "../models/appointmentModel.js";
+import userModel from "../models/userModel.js";
 // adding doctor
 
 // first we add loginAdmin function
@@ -79,7 +80,6 @@ const addDoctor = async (req, res) => {
       resource_type: "image",
     });
     const imageUrl = imageUplaod.secure_url;
-    console.log(imageUrl);
     // store the data in the database
     const doctorData = {
       name,
@@ -121,7 +121,6 @@ const allAppointments = async (req, res) => {
     res.json({ success: true, appointments });
   } catch (error) {
     console.log(error);
-    console.log("Error");
     res.json({ success: false, message: error.message });
   }
 };
@@ -130,7 +129,6 @@ const allAppointments = async (req, res) => {
 const AdmincancelAppointment = async (req, res) => {
   try {
     const { appointmentId } = req.body;
-    // console.log(appointmentId, ",", userId);
     const appointmentData = await appointmentModel.findById(appointmentId);
 
     if (!appointmentData) {
@@ -140,7 +138,6 @@ const AdmincancelAppointment = async (req, res) => {
     await appointmentModel.findByIdAndUpdate(appointmentId, {
       cancelled: true,
     });
-    // console.log("Canceling appointment:", appointmentId);
 
     // releasing doctor slot
     const { docId, slotDate, slotTime } = appointmentData;
@@ -163,10 +160,32 @@ const AdmincancelAppointment = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+// dashboard data
+const dashboardData = async (req, res) => {
+  try {
+    const doctors = await doctorModel.find({});
+    const users = await userModel.find({});
+    const appointments = await appointmentModel.find({});
+    const data = {
+      NumberOfDoc: doctors.length,
+      NumberOfUser: users.length,
+      NumberOfappointments: appointments.length,
+      latestAppointmenst: appointments.reverse().slice(0, 5),
+      activeAppointments: appointments.filter((appoint) => !appoint.cancelled)
+        .length,
+    };
+    res.json({ success: true, data });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
 export {
   addDoctor,
   loginAdmin,
   allDoctors,
   allAppointments,
   AdmincancelAppointment,
+  dashboardData,
 };

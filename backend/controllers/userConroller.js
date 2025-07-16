@@ -105,7 +105,6 @@ const updateProfile = async (req, res) => {
       const uploadimg = await cloudinary.uploader.upload(imageFile.path, {
         resource_type: "image",
       });
-      // console.log("Uploaded File Path:", imageFile?.path);
 
       const imageUrl = uploadimg.secure_url;
       await userModel.findByIdAndUpdate(userId, { image: imageUrl });
@@ -174,7 +173,6 @@ const bookAppointment = async (req, res) => {
 const appointments = async (req, res) => {
   try {
     const userId = req.userId;
-    // console.log(userId);
     const myAppointments = await appointmentModel.find({ userId });
     res.json({ success: true, myAppointments });
   } catch (error) {
@@ -186,15 +184,12 @@ const cancelAppointment = async (req, res) => {
   try {
     const { appointmentId } = req.body;
     const userId = req.userId;
-    // console.log(appointmentId, ",", userId);
     const appointmentData = await appointmentModel.findById(appointmentId);
 
     if (!appointmentData) {
       return res.json({ success: false, message: "Appointment not found" });
     }
     // verify appointment user
-    // console.log("user id", appointmentData.userId);
-    // console.log("user id2 : ", userId);
     if (appointmentData.userId !== userId) {
       return res.json({ success: false, message: "Unauthorized action" });
     }
@@ -202,7 +197,6 @@ const cancelAppointment = async (req, res) => {
     await appointmentModel.findByIdAndUpdate(appointmentId, {
       cancelled: true,
     });
-    // console.log("Canceling appointment:", appointmentId);
 
     // releasing doctor slot
     const { docId, slotDate, slotTime } = appointmentData;

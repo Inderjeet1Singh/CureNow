@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
-import { FaCreditCard, FaTimesCircle } from "react-icons/fa";
+import { FaCreditCard } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
 const MyAppointment = () => {
   const { backendUrl, token } = useContext(AppContext);
   const [myAppointments, setAppointments] = useState([]);
   const navigate = useNavigate();
+
   const month = [
     "Jan",
     "Feb",
@@ -22,10 +24,12 @@ const MyAppointment = () => {
     "Nov",
     "Dec",
   ];
+
   const formatDate = (slotDate) => {
     const date = slotDate.split("_");
     return date[0] + " " + month[parseInt(date[1]) - 1] + " " + date[2];
   };
+
   const getAppointments = async () => {
     try {
       const { data } = await axios.get(
@@ -33,10 +37,7 @@ const MyAppointment = () => {
         { headers: { token } }
       );
       if (data.success) {
-        console.log("MyAppointments:", data.myAppointments);
-        const appointmentsWithNotCancelled = data.myAppointments.filter(
-          (appointment) => !appointment.cancelled
-        );
+        const appointmentsWithNotCancelled = data.myAppointments;
         setAppointments(appointmentsWithNotCancelled.reverse());
       } else {
         toast.error(data.message);
@@ -46,6 +47,7 @@ const MyAppointment = () => {
       console.error(error);
     }
   };
+
   const cancelAppointment = async (appointmentId) => {
     try {
       const { data } = await axios.post(
@@ -53,13 +55,10 @@ const MyAppointment = () => {
         { appointmentId },
         { headers: { token } }
       );
-      // console.log("Cancel response:", data);
       if (data.success) {
-        console.log("Appointment cancelled:", appointmentId);
         toast.success(data.message);
         getAppointments();
       } else {
-        console.error("Cancellation error:", data.message);
         toast.error(data.message);
       }
     } catch (error) {
@@ -72,10 +71,11 @@ const MyAppointment = () => {
     if (token) {
       getAppointments();
     } else {
-      toast.warning("Please log in to view your myAppointments.");
+      toast.warning("Please log in to view your appointments.");
       navigate("/login");
     }
   }, [token]);
+
   if (!myAppointments || myAppointments.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-[90vh] px-4">
@@ -94,14 +94,14 @@ const MyAppointment = () => {
   return (
     <div className="flex flex-col items-center mt-16 px-4 sm:px-6 lg:px-8">
       <h1 className="text-2xl sm:text-3xl font-bold text-blue-800 mb-8 sm:mb-10">
-        Booked myAppointments
+        Booked Appointments
       </h1>
 
       {myAppointments.map((item, index) => (
         <div
           key={index}
           className="flex flex-col sm:flex-row items-start sm:items-center gap-6 w-full max-w-3xl bg-white shadow-lg border border-gray-200 rounded-xl p-5 sm:p-6 mb-8 
-            hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+            hover:shadow-xl transition-shadow duration-300"
         >
           <img
             src={item.docData.image}
@@ -135,20 +135,30 @@ const MyAppointment = () => {
             </p>
 
             <div className="mt-5 flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <button
-                onClick={() => toast.warn("Coming Soon")}
-                className="flex justify-center items-center gap-2 px-5 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition"
-                aria-label="Pay Online"
-              >
-                <FaCreditCard /> Pay Online
-              </button>
-              <button
-                onClick={() => cancelAppointment(item._id)}
-                className="flex justify-center items-center gap-2 px-5 py-2 bg-red-500 text-white text-sm rounded-lg hover:bg-red-600 transition"
-                aria-label="Cancel Appointment"
-              >
-                <FaTimesCircle /> Cancel Appointment
-              </button>
+              {item.cancelled ? (
+                <span className="text-red-500 font-semibold text-sm flex items-center gap-2">
+                  Cancelled
+                </span>
+              ) : item.isCompleted ? (
+                <span className="text-green-600 font-semibold text-sm">
+                  Completed
+                </span>
+              ) : (
+                <>
+                  <button
+                    onClick={() => toast.warn("Payment Coming Soon")}
+                    className="flex justify-center items-center gap-2 px-5 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition"
+                  >
+                    <FaCreditCard /> Pay Online
+                  </button>
+                  <button
+                    onClick={() => cancelAppointment(item._id)}
+                    className="flex justify-center items-center gap-2 px-5 py-2 bg-red-500 text-white text-sm rounded-lg hover:bg-red-600 transition"
+                  >
+                    Cancel Appointment
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>

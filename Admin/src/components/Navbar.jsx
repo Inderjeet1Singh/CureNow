@@ -2,21 +2,24 @@ import React, { useContext, useState } from "react";
 import { AdminContext } from "../context/AdminContext";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { DoctorContext } from "../context/DoctorContext";
 
 const Navbar = () => {
   const { aToken, setAToken } = useContext(AdminContext);
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const { dToken, setDToken } = useContext(DoctorContext);
   const logout = () => {
     aToken && setAToken("");
     aToken && localStorage.removeItem("aToken");
+    dToken && setDToken("");
+    dToken && localStorage.removeItem("dToken");
   };
   return (
     <nav className="bg-green-100 shadow-sm w-full relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between relative">
         {/* Logo (left) */}
         <Link
-          to={"/"}
+          to={aToken ? "/admin-dashboard" : "/doctor-dashboard"}
           className="flex-shrink-0 text-blue-600 text-2xl font-bold"
         >
           CureNow{" "}
@@ -24,7 +27,7 @@ const Navbar = () => {
             {aToken ? "Admin" : "Doctor"} Panel
           </span>
         </Link>
-        {aToken ? (
+        {aToken && (
           <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-12">
             <Link
               to="/admin-dashboard"
@@ -51,25 +54,29 @@ const Navbar = () => {
               Add-Doctors
             </Link>
           </div>
-        ) : (
+        )}
+        {dToken && (
           <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-12">
             <Link
-              to="/"
+              to="/doctor-dashboard"
               className="text-gray-700 hover:text-blue-600 font-medium transition"
             >
               Dashboard
             </Link>
             <Link
-              to="/appointments"
+              to="/doctor-appointments"
               className="text-gray-700 hover:text-blue-600 font-medium transition"
             >
               Appointments
             </Link>
+            <Link
+              to="/doctor-profile"
+              className="text-gray-700 hover:text-blue-600 font-medium transition"
+            >
+              Profile
+            </Link>
           </div>
         )}
-        {/* Centered Links */}
-
-        {/* Logout (right) */}
         <div className="hidden md:block">
           <button
             onClick={logout}
@@ -94,7 +101,7 @@ const Navbar = () => {
       {menuOpen && (
         <div className="md:hidden bg-white border-t">
           <div className="px-4 py-4 space-y-4">
-            {aToken ? (
+            {aToken && (
               <>
                 <Link
                   to="/"
@@ -104,7 +111,7 @@ const Navbar = () => {
                   Dashboard
                 </Link>
                 <Link
-                  to="/appointments"
+                  to="/all-appointments"
                   className="block text-gray-700 hover:text-blue-600 font-medium"
                   onClick={() => setMenuOpen(false)}
                 >
@@ -125,21 +132,29 @@ const Navbar = () => {
                   Add Doctor
                 </Link>
               </>
-            ) : (
+            )}
+            {dToken && (
               <>
                 <Link
-                  to="/"
+                  to="/doctor-dashboard"
                   className="block text-gray-700 hover:text-blue-600 font-medium"
                   onClick={() => setMenuOpen(false)}
                 >
                   Dashboard
                 </Link>
                 <Link
-                  to="/appointments"
+                  to="/doctor-appointments"
                   className="block text-gray-700 hover:text-blue-600 font-medium"
                   onClick={() => setMenuOpen(false)}
                 >
                   Appointments
+                </Link>
+                <Link
+                  to="/doctor-profile"
+                  className="block text-gray-700 hover:text-blue-600 font-medium"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Profile
                 </Link>
               </>
             )}

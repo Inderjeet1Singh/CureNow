@@ -19,7 +19,7 @@ const SignUp = () => {
         email,
         password,
       });
-      if (data.succes) {
+      if (data.success) {
         localStorage.setItem("token", data.token);
         setToken(data.token);
       } else {
