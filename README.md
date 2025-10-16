@@ -1,4 +1,6 @@
 # CureNow
+- [Website Link](https://curenow.netlify.app/)
+- [Admin_Panel Link](https://curenowadmin.netlify.app/)
 
 **CureNow** is a user-friendly React-based web application designed to help users book and manage medical appointments with doctors across various specialties.  
 The platform provides detailed doctor profiles, easy appointment booking, online payment, and appointment management features.
